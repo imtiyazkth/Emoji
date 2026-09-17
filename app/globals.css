@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens: centralize every color here — never hardcode
+   hex values in components. Dark theme first (product default),
+   with a light-scheme override for prefers-color-scheme. ────────── */
+:root {
+  --color-background: #0b0b12;
+  --color-surface: #14141f;
+  --color-surface-elevated: #1c1c2b;
+  --color-primary: #a855f7;
+  --color-secondary: #22d3ee;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-text-primary: #f5f5fa;
+  --color-text-secondary: #9a9ab0;
+  --color-border: #2a2a3d;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html,
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+.glass-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+}
+
+.art-preview {
+  white-space: pre;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  tab-size: 2;
+}
+
+/* Prevent wide emoji-art from breaking mobile layout. */
+.art-preview-container {
+  max-width: 100%;
+  overflow-x: auto;
+}

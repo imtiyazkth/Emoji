@@ -1,0 +1,20 @@
+{
+  "database_version": "1.0.0",
+  "categories": [
+    { "id": "love", "label": "Love", "icon": "❤️" },
+    { "id": "funny", "label": "Funny", "icon": "😂" },
+    { "id": "cute", "label": "Cute", "icon": "🐰" },
+    { "id": "action", "label": "Action", "icon": "⚡" },
+    { "id": "romantic", "label": "Romantic", "icon": "💕" },
+    { "id": "birthday", "label": "Birthday", "icon": "🎂" },
+    { "id": "celebration", "label": "Celebration", "icon": "🎉" },
+    { "id": "minimal", "label": "Minimal", "icon": "▫️" },
+    { "id": "dark", "label": "Dark", "icon": "🖤" },
+    { "id": "gaming", "label": "Gaming", "icon": "🎮" },
+    { "id": "cars", "label": "Cars", "icon": "🏎️" },
+    { "id": "morning", "label": "Good Morning", "icon": "☀️" },
+    { "id": "night", "label": "Good Night", "icon": "🌙" },
+    { "id": "sad", "label": "Sad", "icon": "😢" },
+    { "id": "angry", "label": "Angry", "icon": "😡" }
+  ]
+}

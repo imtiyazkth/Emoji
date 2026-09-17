@@ -1,0 +1,8 @@
+{
+  "ai_generation": true,
+  "semantic_cache": false,
+  "sticker_studio": true,
+  "telegram_share": true,
+  "whatsapp_share": true,
+  "maintenance_mode": false
+}

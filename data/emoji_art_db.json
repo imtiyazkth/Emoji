@@ -1,0 +1,55 @@
+{
+  "database_version": "1.0.0",
+  "last_updated": "2026-09-17T00:00:00.000Z",
+  "total_records": 3,
+  "emoji_arts": [
+    {
+      "id": "art_001",
+      "intent_key": "love:i-love-you",
+      "user_intent_keywords": ["love", "i love you", "cute", "bunny"],
+      "category": "love",
+      "style": "bunny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.9,
+      "source": "seed",
+      "status": "active",
+      "featured": true,
+      "created_at": "2026-09-17T00:00:00.000Z",
+      "updated_at": "2026-09-17T00:00:00.000Z",
+      "raw_text_art": "(\\__/)\n( • • )\n( >❤️ [USER_TEXT] 🫶\n U U"
+    },
+    {
+      "id": "art_002",
+      "intent_key": "birthday:happy-birthday",
+      "user_intent_keywords": ["happy birthday", "birthday", "celebration"],
+      "category": "birthday",
+      "style": "celebration",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.85,
+      "source": "seed",
+      "status": "active",
+      "featured": true,
+      "created_at": "2026-09-17T00:00:00.000Z",
+      "updated_at": "2026-09-17T00:00:00.000Z",
+      "raw_text_art": "🎉🎂🎈\n[USER_TEXT]\n🎈🎂🎉"
+    },
+    {
+      "id": "art_003",
+      "intent_key": "morning:good-morning",
+      "user_intent_keywords": ["good morning", "morning", "sunrise"],
+      "category": "morning",
+      "style": "minimal",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.8,
+      "source": "seed",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-17T00:00:00.000Z",
+      "updated_at": "2026-09-17T00:00:00.000Z",
+      "raw_text_art": "☀️  [USER_TEXT]  ☀️\n~~~~~~~~~~~~~~~~"
+    }
+  ]
+}

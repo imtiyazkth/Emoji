@@ -1,0 +1,54 @@
+{
+  "database_version": "1.0.0",
+  "last_updated": "2026-09-17T00:00:00.000Z",
+  "entries": [
+    {
+      "emoji": "😂",
+      "aliases": ["laugh", "funny", "lol", "lmao"],
+      "kaomojis": ["(≧▽≦)", "(๑˃ᴗ˂)ﻭ", "ヾ(≧▽≦*)o"],
+      "category": "happy"
+    },
+    {
+      "emoji": "😡",
+      "aliases": ["angry", "mad", "rage"],
+      "kaomojis": ["凸(｀⌒´メ)凸", "(╬ಠ益ಠ)", "٩(๑`^´๑)۶"],
+      "category": "angry"
+    },
+    {
+      "emoji": "😍",
+      "aliases": ["love", "heart eyes", "adore"],
+      "kaomojis": ["(｡♥‿♥｡)", "(◕‿◕)♡", "♡(◡‿◡)"],
+      "category": "love"
+    },
+    {
+      "emoji": "😭",
+      "aliases": ["cry", "sad", "sob"],
+      "kaomojis": ["(╥﹏╥)", "(;ω;)", "T_T"],
+      "category": "sad"
+    },
+    {
+      "emoji": "😎",
+      "aliases": ["cool", "sunglasses"],
+      "kaomojis": ["(⌐■_■)", "( ・∀・)b", "8-)"],
+      "category": "cool"
+    },
+    {
+      "emoji": "🤔",
+      "aliases": ["think", "thinking", "hmm"],
+      "kaomojis": ["(￣ω￣;)", "(・_・?)", "( ⚆ _ ⚆ )"],
+      "category": "confused"
+    },
+    {
+      "emoji": "😴",
+      "aliases": ["sleep", "tired", "sleepy"],
+      "kaomojis": ["(-_-) zzZ", "(=ω=)", "(。-ω-)zzz"],
+      "category": "sleepy"
+    },
+    {
+      "emoji": "😱",
+      "aliases": ["shock", "scared", "omg"],
+      "kaomojis": ["(⊙_⊙)", "Σ(ﾟДﾟ)", "(ﾟдﾟ；)"],
+      "category": "shock"
+    }
+  ]
+}
