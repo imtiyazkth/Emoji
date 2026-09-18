@@ -49,7 +49,7 @@ export class CacheAgent {
     }
 
     // 2) Fuzzy / token-overlap match against keyword sets for this style
-    const threshold = Number(process.env.FUZZY_MATCH_THRESHOLD || 0.86);
+    const threshold = Number(process.env.FUZZY_MATCH_THRESHOLD || 0.8);
     const fuzzy = await this.repo.findSimilar(input.text, input.style, threshold);
     if (fuzzy) {
       await this.repo.incrementHit(fuzzy.id);

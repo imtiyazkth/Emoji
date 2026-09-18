@@ -13,7 +13,7 @@ pattern can satisfy the request.**
    the same style, using:
    - exact normalized match
    - token overlap (shared-word ratio ≥ 0.75)
-   - Levenshtein similarity (≥ `FUZZY_MATCH_THRESHOLD`, default 0.86)
+   - Levenshtein similarity (≥ `FUZZY_MATCH_THRESHOLD`, default 0.8)
    - a **negation guard**: phrases where one side has a negation word
      ("hate", "not", "never"...) and the other doesn't are never
      matched, regardless of edit-distance closeness — this is what

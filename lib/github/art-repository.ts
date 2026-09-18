@@ -43,7 +43,7 @@ export class GitHubArtRepository implements ArtRepository {
     return db.emoji_arts.find((a) => a.intent_key === intentKey && a.status === "active") ?? null;
   }
 
-  async findSimilar(query: string, style: string, threshold = 0.86): Promise<EmojiArtRecord | null> {
+  async findSimilar(query: string, style: string, threshold = 0.8): Promise<EmojiArtRecord | null> {
     const db = await loadDb();
     let best: { record: EmojiArtRecord; score: number } | null = null;
     for (const record of db.emoji_arts) {

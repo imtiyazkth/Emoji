@@ -48,7 +48,11 @@ export function tokenOverlap(a: string, b: string): number {
   if (ta.size === 0 || tb.size === 0) return 0;
   let shared = 0;
   for (const t of ta) if (tb.has(t)) shared++;
-  return shared / Math.max(ta.size, tb.size);
+  // Containment coefficient (shared / smaller set), not Jaccard (shared / union
+  // or shared / larger set) — a short query fully contained in a longer
+  // candidate (e.g. "love you" inside "i love you so much") should score
+  // near 1.0, not get penalized for the candidate having extra words.
+  return shared / Math.min(ta.size, tb.size);
 }
 
 /** Guards against matching semantic opposites just because they're edit-distance close. */
@@ -66,7 +70,7 @@ export interface FuzzyMatchResult {
   method: "exact" | "token" | "levenshtein" | "none";
 }
 
-export function fuzzyMatch(query: string, candidate: string, threshold = 0.86): FuzzyMatchResult {
+export function fuzzyMatch(query: string, candidate: string, threshold = 0.8): FuzzyMatchResult {
   const nq = normalizeForMatching(query);
   const nc = normalizeForMatching(candidate);
 
