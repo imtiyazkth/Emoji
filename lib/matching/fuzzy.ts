@@ -15,22 +15,21 @@ function levenshtein(a: string, b: string): number {
   const n = b.length;
   if (m === 0) return n;
   if (n === 0) return m;
-  const dp: number[] = new Array(n + 1);
+  const dp: number[] = new Array(n + 1).fill(0);
   for (let j = 0; j <= n; j++) dp[j] = j;
   for (let i = 1; i <= m; i++) {
-    let prev = dp[0];
+    let prev = dp[0]!;
     dp[0] = i;
     for (let j = 1; j <= n; j++) {
-      const temp = dp[j];
-      dp[j] = Math.min(
-        dp[j] + 1, // deletion
-        dp[j - 1] + 1, // insertion
-        prev + (a[i - 1] === b[j - 1] ? 0 : 1) // substitution
-      );
+      const temp = dp[j]!;
+      const deletionCost = dp[j]! + 1;
+      const insertionCost = dp[j - 1]! + 1;
+      const substitutionCost = prev + (a[i - 1] === b[j - 1] ? 0 : 1);
+      dp[j] = Math.min(deletionCost, insertionCost, substitutionCost);
       prev = temp;
     }
   }
-  return dp[n];
+  return dp[n]!;
 }
 
 /** 0..1 similarity, 1 = identical. */
