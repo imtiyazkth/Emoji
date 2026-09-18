@@ -1,5 +1,6 @@
 import { isGithubConfigured, readJsonFile, writeJsonFile } from "./client";
 import { localReadJson, localWriteJson } from "./local-store";
+import { githubPath, localFileName } from "./paths";
 import { assertValidEmojiArtDb, type EmojiArtDb } from "../utils/schemas";
 import { AppError, ErrorCode } from "../utils/errors";
 
@@ -41,16 +42,16 @@ function maxBatchSize(): number {
 
 async function readDb(): Promise<{ data: EmojiArtDb; sha: string }> {
   if (isGithubConfigured()) {
-    return readJsonFile<EmojiArtDb>(FILE_NAME);
+    return readJsonFile<EmojiArtDb>(githubPath(FILE_NAME));
   }
-  return localReadJson<EmojiArtDb>(FILE_NAME);
+  return localReadJson<EmojiArtDb>(localFileName(FILE_NAME));
 }
 
 async function writeDb(data: EmojiArtDb, sha: string): Promise<{ sha: string }> {
   if (isGithubConfigured()) {
-    return writeJsonFile(FILE_NAME, data, sha, "chore(cache): batched art DB update");
+    return writeJsonFile(githubPath(FILE_NAME), data, sha, "chore(cache): batched art DB update");
   }
-  return localWriteJson(FILE_NAME, data);
+  return localWriteJson(localFileName(FILE_NAME), data);
 }
 
 async function flush(): Promise<void> {

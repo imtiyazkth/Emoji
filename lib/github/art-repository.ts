@@ -2,6 +2,7 @@ import type { ArtRepository } from "../cache/art-repository";
 import { assertValidEmojiArtDb, type EmojiArtDb, type EmojiArtRecord } from "../utils/schemas";
 import { isGithubConfigured, readJsonFile } from "./client";
 import { localReadJson } from "./local-store";
+import { githubPath, localFileName } from "./paths";
 import { enqueueMutation, forceFlush } from "./write-queue";
 import { fuzzyMatch } from "../matching/fuzzy";
 import { AppError, ErrorCode } from "../utils/errors";
@@ -15,8 +16,8 @@ async function loadDb(): Promise<EmojiArtDb> {
   if (readCache && readCache.expiresAt > Date.now()) return readCache.data;
   try {
     const { data } = isGithubConfigured()
-      ? await readJsonFile<EmojiArtDb>(FILE_NAME)
-      : await localReadJson<EmojiArtDb>(FILE_NAME);
+      ? await readJsonFile<EmojiArtDb>(githubPath(FILE_NAME))
+      : await localReadJson<EmojiArtDb>(localFileName(FILE_NAME));
     const validated = assertValidEmojiArtDb(data);
     readCache = { data: validated, expiresAt: Date.now() + READ_CACHE_TTL_MS };
     return validated;
