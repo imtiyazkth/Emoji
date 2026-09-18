@@ -63,7 +63,11 @@ export function KaomojiConverter() {
         🎲 Surprise me
       </button>
 
-      {notFound && <p className="text-sm text-text-secondary">No kaomoji found for that yet — try an emoji like 😂 or a word like "cool".</p>}
+      {notFound && (
+        <p className="text-sm text-text-secondary">
+          No kaomoji found for that yet — try an emoji like 😂 or a word like &quot;cool&quot;.
+        </p>
+      )}
 
       {matches.length > 0 && (
         <div className="flex flex-col gap-3">

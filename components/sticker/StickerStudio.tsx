@@ -139,9 +139,9 @@ export function StickerStudio() {
         Export PNG
       </button>
       <p className="text-xs text-text-secondary">
-        Sticker packs export as PNG/WebP assets for you to share via your device's share sheet or attach in chat
-        apps. Direct one-tap install into WhatsApp/Telegram isn't an officially supported browser capability, so
-        we don't claim it — see docs/api.md for the supported sharing paths.
+        Sticker packs export as PNG/WebP assets for you to share via your device&apos;s share sheet or attach in
+        chat apps. Direct one-tap install into WhatsApp/Telegram isn&apos;t an officially supported browser
+        capability, so we don&apos;t claim it — see docs/api.md for the supported sharing paths.
       </p>
     </div>
   );

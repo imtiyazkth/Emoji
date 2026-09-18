@@ -9,7 +9,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
         </p>
         <h1 className="text-lg font-bold">Something went wrong</h1>
         <p className="max-w-sm text-sm text-text-secondary">
-          That's on us, not you. Please try again — if it keeps happening, refresh the page.
+          That&apos;s on us, not you. Please try again — if it keeps happening, refresh the page.
         </p>
         <button onClick={reset} className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white">
           Try again
