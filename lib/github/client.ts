@@ -16,7 +16,22 @@ function requireEnv(name: string): string {
   if (!v) {
     throw new AppError(ErrorCode.INTERNAL_ERROR, `Missing required env var ${name}`, { status: 500 });
   }
-  return v;
+  // Trim defensively: a stray trailing space/newline from copy-pasting an
+  // env var value into a dashboard UI silently breaks the GitHub API URL
+  // (e.g. "Emoji\n" -> repos/owner/Emoji%0A/... -> 404) with no obvious
+  // symptom other than "everything looks right but it 404s".
+  return v.trim();
+}
+
+function resolveBranch(): string {
+  return (process.env.GITHUB_BRANCH || "main").trim();
+}
+
+/** For diagnostics only (never includes the token) — e.g. "owner/repo@branch". */
+function githubConfigSummary(): string {
+  const owner = (process.env.GITHUB_OWNER || "?").trim();
+  const repo = (process.env.GITHUB_REPO || "?").trim();
+  return `${owner}/${repo}@${resolveBranch()}`;
 }
 
 function ghConfigured(): boolean {
@@ -46,12 +61,14 @@ async function ghFetch(path: string, init?: RequestInit): Promise<Response> {
 
 /** Read a JSON file + its current SHA (needed for safe writes). */
 export async function readJsonFile<T>(path: string): Promise<{ data: T; sha: string }> {
-  const branch = process.env.GITHUB_BRANCH || "main";
+  const branch = resolveBranch();
   const res = await ghFetch(`${path}?ref=${branch}`);
   if (!res.ok) {
-    throw new AppError(ErrorCode.GITHUB_READ_ERROR, `Failed to read ${path} from GitHub (${res.status})`, {
-      retryable: res.status >= 500 || res.status === 429,
-    });
+    throw new AppError(
+      ErrorCode.GITHUB_READ_ERROR,
+      `Failed to read ${path} from GitHub (${res.status}) [${githubConfigSummary()}]`,
+      { retryable: res.status >= 500 || res.status === 429 }
+    );
   }
   const body = (await res.json()) as GhFileResponse;
   const json = Buffer.from(body.content, "base64").toString("utf-8");
@@ -69,7 +86,7 @@ export async function writeJsonFile(
   sha: string,
   message: string
 ): Promise<{ sha: string }> {
-  const branch = process.env.GITHUB_BRANCH || "main";
+  const branch = resolveBranch();
   const content = Buffer.from(JSON.stringify(data, null, 2), "utf-8").toString("base64");
   const res = await ghFetch(path, {
     method: "PUT",

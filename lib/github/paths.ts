@@ -13,7 +13,7 @@
  * with an empty string) without touching call sites.
  */
 
-const GITHUB_DATA_DIR = process.env.GITHUB_DATA_DIR ?? "data";
+const GITHUB_DATA_DIR = (process.env.GITHUB_DATA_DIR ?? "data").trim().replace(/\/+$/, "");
 
 export function githubPath(fileName: string): string {
   return GITHUB_DATA_DIR ? `${GITHUB_DATA_DIR}/${fileName}` : fileName;
