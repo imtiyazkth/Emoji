@@ -92,7 +92,7 @@ for the production setup steps.
 ## Groq setup
 
 Set `GROQ_API_KEY` (and optionally `GROQ_MODEL`, default
-`llama-3.1-8b-instant`). The key is read server-side only
+`openai/gpt-oss-20b`). The key is read server-side only
 (`lib/ai/provider.ts`) and is never sent to the browser.
 
 ## Security

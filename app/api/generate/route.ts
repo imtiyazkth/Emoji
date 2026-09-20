@@ -5,6 +5,7 @@ import { errorResponseBody, statusFor, newRequestId, AppError, ErrorCode } from 
 import { checkRateLimit, clientIdFromRequest } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 const agent = new CacheAgent();
 

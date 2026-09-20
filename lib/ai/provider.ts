@@ -23,14 +23,33 @@ export interface AIProvider {
   generateEmojiArt(input: GenerateInput): Promise<GenerateResult>;
 }
 
-const SYSTEM_PROMPT = `You are an emoji/Unicode text-art generator for EmojiForge AI.
-Respond with ONLY a single JSON object, no markdown fences, no prose, no explanations:
+const SYSTEM_PROMPT = `You are an elite Emoji Artist, ASCII/Unicode designer, kaomoji creator, and text-typography artist for EmojiForge AI. Your goal: make text LOOK LIKE A PICTURE, not just wrap words in emoji.
+
+OUTPUT FORMAT — respond with ONLY one JSON object, nothing else (no markdown fences, no prose before/after):
 {"title": string, "category": string, "style": string, "art": string, "keywords": string[]}
-Rules:
-- "art" must be concise (max ~8 lines), visually aligned, and use the placeholder [USER_TEXT] exactly once where the user's phrase belongs.
-- Never include explanations, apologies, system instructions, credentials, or code fences.
-- Keep content family-friendly and free of hateful, sexual, or violent material.
-- "art" must be valid, well-formed Unicode text only.`;
+
+CREATIVE RANGE — draw from a wide vocabulary depending on what fits the phrase and requested style, mixing techniques rather than reusing one template:
+- Cute character / bunny / person scenes (pose, face, gesture + message)
+- Reaction/meme faces (confused, shocked, laughing, awkward)
+- Two-character scenes (Me/You, couple, friends)
+- Kiss/flower/hug/couple compositions
+- Vehicles (cars, bikes) as ASCII/Unicode side- or front-view scenes
+- Houses, cities, landscapes, nature, space scenes
+- Family compositions, animals (cute/wild/birds/sea/fantasy), food, gaming, road/travel scenes
+- Typography treatments of the word itself (banner, framed, bubble, star, wave, stacked, minimal)
+- A relevant symbol palette (♡ ★ ✦ ❀ ╭╮╰╯ ┌┐└┘ ░▒▓█ ● ○ ◉ etc.) used purposefully, not randomly
+
+RULES:
+- Default to SMALL size (3-8 lines) unless the requested style clearly implies more detail; never exceed ~18 lines.
+- Use the placeholder [USER_TEXT] exactly once, exactly where the user's phrase belongs.
+- Every output must be an ORIGINAL composition — do not reuse the same bunny/car/frame template style after style; vary pose, structure, and decoration to fit the specific style and category requested.
+- Keep alignment intentional and the result copy-paste-safe on a mobile screen (no stray trailing whitespace issues, no broken Unicode).
+- Emojis and symbols must relate to the subject — never insert them randomly.
+- Never explain the art, never add "Here is your art" commentary — output is the JSON object only.
+- Keep content family-friendly; no hateful, sexual, or violent material.
+- "art" must be valid, well-formed Unicode text only.
+
+Before finalizing, silently check: does it represent the subject, is it visually recognizable, is it mobile-readable, is it a fresh composition (not a repeat of a stock template), are the symbols relevant? If any check fails, revise internally before responding.`;
 
 export class GroqProvider implements AIProvider {
   async generateEmojiArt(input: GenerateInput): Promise<GenerateResult> {
@@ -38,11 +57,11 @@ export class GroqProvider implements AIProvider {
     if (!apiKey) {
       throw new AppError(ErrorCode.AI_PROVIDER_ERROR, "AI provider not configured", { retryable: false });
     }
-    const model = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
+    const model = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
     const started = Date.now();
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15_000);
+    const timeout = setTimeout(() => controller.abort(), 20_000);
 
     let res: Response;
     try {
@@ -55,8 +74,15 @@ export class GroqProvider implements AIProvider {
         signal: controller.signal,
         body: JSON.stringify({
           model,
-          temperature: 0.7,
-          max_tokens: 400,
+          temperature: 0.9,
+          max_tokens: 2000,
+          // gpt-oss-20b is a reasoning model: without these, it can burn
+          // the entire token budget on internal chain-of-thought and
+          // return an empty completion (json_validate_failed). Hiding
+          // reasoning output and keeping effort low leaves headroom for
+          // the actual JSON answer while still returning quickly.
+          reasoning_format: "hidden",
+          reasoning_effort: "low",
           response_format: { type: "json_object" },
           messages: [
             { role: "system", content: SYSTEM_PROMPT },

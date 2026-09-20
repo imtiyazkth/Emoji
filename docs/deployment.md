@@ -50,7 +50,7 @@ env var — Fly.io, Render, a plain VM, etc.
 ## Groq setup
 
 1. Create a Groq API key at console.groq.com.
-2. Set `GROQ_API_KEY` and `GROQ_MODEL` (e.g. `llama-3.1-8b-instant`).
+2. Set `GROQ_API_KEY` and `GROQ_MODEL` (e.g. `openai/gpt-oss-20b`).
 3. Without a key, the app automatically uses `MockProvider` — useful for
    demos, CI, and contributors who don't want to provision a key.
 
