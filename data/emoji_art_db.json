@@ -1,16 +1,21 @@
 {
   "database_version": "1.0.0",
-  "last_updated": "2026-09-17T00:00:00.000Z",
-  "total_records": 3,
+  "last_updated": "2026-09-21T17:37:58.399Z",
+  "total_records": 16,
   "emoji_arts": [
     {
       "id": "art_001",
       "intent_key": "love:i-love-you",
-      "user_intent_keywords": ["love", "i love you", "cute", "bunny"],
+      "user_intent_keywords": [
+        "love",
+        "i love you",
+        "cute",
+        "bunny"
+      ],
       "category": "love",
       "style": "bunny",
       "language": "en",
-      "hit_count": 0,
+      "hit_count": 3,
       "quality_score": 0.9,
       "source": "seed",
       "status": "active",
@@ -22,7 +27,11 @@
     {
       "id": "art_002",
       "intent_key": "birthday:happy-birthday",
-      "user_intent_keywords": ["happy birthday", "birthday", "celebration"],
+      "user_intent_keywords": [
+        "happy birthday",
+        "birthday",
+        "celebration"
+      ],
       "category": "birthday",
       "style": "celebration",
       "language": "en",
@@ -38,7 +47,11 @@
     {
       "id": "art_003",
       "intent_key": "morning:good-morning",
-      "user_intent_keywords": ["good morning", "morning", "sunrise"],
+      "user_intent_keywords": [
+        "good morning",
+        "morning",
+        "sunrise"
+      ],
       "category": "morning",
       "style": "minimal",
       "language": "en",
@@ -50,6 +63,290 @@
       "created_at": "2026-09-17T00:00:00.000Z",
       "updated_at": "2026-09-17T00:00:00.000Z",
       "raw_text_art": "☀️  [USER_TEXT]  ☀️\n~~~~~~~~~~~~~~~~"
+    },
+    {
+      "id": "art_mubiwkol",
+      "intent_key": "bunny:i-hate-you",
+      "user_intent_keywords": [
+        "i hate you",
+        "bunny",
+        "emoji",
+        "hate",
+        "phrase"
+      ],
+      "category": "auto",
+      "style": "bunny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:32:41.013Z",
+      "updated_at": "2026-09-21T17:32:41.013Z",
+      "raw_text_art": "  (\\_/)\n ( •_•)\n /   \\\n  ||||\n [USER_TEXT]"
+    },
+    {
+      "id": "art_mubiwufi",
+      "intent_key": "bunny:home",
+      "user_intent_keywords": [
+        "home",
+        "bunny",
+        "auto",
+        "cute"
+      ],
+      "category": "auto",
+      "style": "bunny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:32:53.645Z",
+      "updated_at": "2026-09-21T17:32:53.645Z",
+      "raw_text_art": "  🐰🏠\n   \n  (\\__/)\n  ( •_•)\n / >🐰  [USER_TEXT]"
+    },
+    {
+      "id": "art_mubixctc",
+      "intent_key": "minimal:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "auto",
+        "minimal",
+        "car"
+      ],
+      "category": "auto",
+      "style": "minimal",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:33:17.472Z",
+      "updated_at": "2026-09-21T17:33:17.472Z",
+      "raw_text_art": "   _____\n  /|   |\\\n |[USER_TEXT]|\n | |   | |\n |_______|"
+    },
+    {
+      "id": "art_mubixhcp",
+      "intent_key": "dark:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "dark",
+        "phrase"
+      ],
+      "category": "auto",
+      "style": "dark",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:33:23.353Z",
+      "updated_at": "2026-09-21T17:33:23.353Z",
+      "raw_text_art": "      🚗🚗🚗\n     🚗[USER_TEXT]🚗\n     🚗🚗🚗\n      🚗🚗🚗"
+    },
+    {
+      "id": "art_mubixml6",
+      "intent_key": "gaming:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "gaming",
+        "car",
+        "automotive",
+        "emoji"
+      ],
+      "category": "auto",
+      "style": "gaming",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:33:30.138Z",
+      "updated_at": "2026-09-21T17:33:30.138Z",
+      "raw_text_art": "      🚗🚀\n   🛠️   🧠\n🛠️   [USER_TEXT]   🛠️\n   🧠   🛠️\n      🚗🚀"
+    },
+    {
+      "id": "art_mubixv55",
+      "intent_key": "cars:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "love",
+        "phrase"
+      ],
+      "category": "auto",
+      "style": "cars",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:33:41.225Z",
+      "updated_at": "2026-09-21T17:33:41.225Z",
+      "raw_text_art": "   ________\n  /|_||_\\`.__\n (   _    _ _\\\n =`-(_)--(_)-'\n   [USER_TEXT]   \n  __||__||__\n /  ______  \\\n"
+    },
+    {
+      "id": "art_mubiy7z6",
+      "intent_key": "funny:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "speech",
+        "funny",
+        "emoji",
+        "auto"
+      ],
+      "category": "auto",
+      "style": "funny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:33:57.858Z",
+      "updated_at": "2026-09-21T17:33:57.858Z",
+      "raw_text_art": "      _______\n ___/   [USER_TEXT]  \\\n|   _   _   ___  |\n|  (_) (_) (_) | |\n|   ___   ___  | |\n \\______/_____/"
+    },
+    {
+      "id": "art_mubj18ym",
+      "intent_key": "birthday:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "birthday",
+        "celebration",
+        "emoji"
+      ],
+      "category": "auto",
+      "style": "birthday",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:36:19.102Z",
+      "updated_at": "2026-09-21T17:36:19.102Z",
+      "raw_text_art": "      🎉🚗🎈\n     ┌───┬───┐\n   🏎️│[USER_TEXT]│🎂\n     └───┴───┘\n   🎁🚦✨"
+    },
+    {
+      "id": "art_mubj1ndc",
+      "intent_key": "cute:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "love",
+        "cute",
+        "emoji",
+        "automotive"
+      ],
+      "category": "auto",
+      "style": "cute",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:36:37.776Z",
+      "updated_at": "2026-09-21T17:36:37.776Z",
+      "raw_text_art": "  _______\n /[USER_TEXT]\\\\\n(  🚗  )\n \\\\_____/"
+    },
+    {
+      "id": "art_mubj24j0",
+      "intent_key": "funny:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "funny",
+        "speech",
+        "question"
+      ],
+      "category": "auto",
+      "style": "funny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:37:00.012Z",
+      "updated_at": "2026-09-21T17:37:00.012Z",
+      "raw_text_art": "   🚗\n  /___\\\n [USER_TEXT]\n  O   O"
+    },
+    {
+      "id": "art_mubj28wa",
+      "intent_key": "cute:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "cute",
+        "text"
+      ],
+      "category": "auto",
+      "style": "cute",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:37:05.674Z",
+      "updated_at": "2026-09-21T17:37:05.674Z",
+      "raw_text_art": "   🚗\n  /   \\\n /[USER_TEXT] \\\n \\_____/"
+    },
+    {
+      "id": "art_mubj2cih",
+      "intent_key": "birthday:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "birthday",
+        "party",
+        "emoji"
+      ],
+      "category": "auto",
+      "style": "birthday",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:37:10.361Z",
+      "updated_at": "2026-09-21T17:37:10.361Z",
+      "raw_text_art": "      🎉🎂🚗🚙\n   [USER_TEXT] 🛻🛺\n  🎈🏠🚗💨\n   🎁🎊🛻"
+    },
+    {
+      "id": "art_mubj2l99",
+      "intent_key": "minimal:do-you-love-me",
+      "user_intent_keywords": [
+        "do you love me",
+        "car",
+        "minimal",
+        "phrase",
+        "auto",
+        "love"
+      ],
+      "category": "auto",
+      "style": "minimal",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-21T17:37:21.692Z",
+      "updated_at": "2026-09-21T17:37:21.692Z",
+      "raw_text_art": "   ______\n  /|_||_\\`.__\n (   _    _ _\\\n =-(_)--(_)-'\n[USER_TEXT]"
     }
   ]
 }
