@@ -1,7 +1,7 @@
 {
   "database_version": "1.0.0",
-  "last_updated": "2026-09-21T17:37:58.399Z",
-  "total_records": 16,
+  "last_updated": "2026-09-23T15:08:38.980Z",
+  "total_records": 19,
   "emoji_arts": [
     {
       "id": "art_001",
@@ -347,6 +347,71 @@
       "created_at": "2026-09-21T17:37:21.692Z",
       "updated_at": "2026-09-21T17:37:21.692Z",
       "raw_text_art": "   ______\n  /|_||_\\`.__\n (   _    _ _\\\n =-(_)--(_)-'\n[USER_TEXT]"
+    },
+    {
+      "id": "art_mue8dm36",
+      "intent_key": "funny:i-hate-you",
+      "user_intent_keywords": [
+        "i hate you",
+        "funny",
+        "tension",
+        "playful",
+        "rage"
+      ],
+      "category": "auto",
+      "style": "funny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-23T15:01:18.738Z",
+      "updated_at": "2026-09-23T15:01:18.738Z",
+      "raw_text_art": "   (╯°□°）╯︵ ┻━┻\n      ────\n   [USER_TEXT]   \n   ──────\n   ( ͡° ͜ʖ ͡°)"
+    },
+    {
+      "id": "art_mue8dvo6",
+      "intent_key": "bunny:jibon",
+      "user_intent_keywords": [
+        "jibon",
+        "bunny",
+        "life",
+        "playful"
+      ],
+      "category": "auto",
+      "style": "bunny",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-23T15:01:31.158Z",
+      "updated_at": "2026-09-23T15:01:31.158Z",
+      "raw_text_art": "   🐰\n  (•ᴗ•)\n  /  \\\n  |  |\n  /\\\n  \n  Jibon"
+    },
+    {
+      "id": "art_mue8hyu7",
+      "intent_key": "birthday:imtiyaz-surjapuri",
+      "user_intent_keywords": [
+        "imtiyaz surjapuri",
+        "birthday",
+        "celebration",
+        "cake",
+        "confetti"
+      ],
+      "category": "auto",
+      "style": "birthday",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-23T15:04:41.887Z",
+      "updated_at": "2026-09-23T15:04:41.887Z",
+      "raw_text_art": "🎂  ✨  ✨  🎉\n\n      (•‿•)\n      /|\\\n       |\n     Imtiyaz Surjapuri\n   🎈  🎈  🎈\n\n"
     }
   ]
 }
