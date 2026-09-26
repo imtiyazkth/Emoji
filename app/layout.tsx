@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { NavBar } from "@/components/shared/NavBar";
 
 export const metadata: Metadata = {
   title: "EmojiForge AI — Turn anything into emoji art",
@@ -28,12 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen font-sans antialiased">
-        <a
+        
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-surface focus:px-4 focus:py-2 focus:rounded-lg"
         >
           Skip to content
         </a>
+        <NavBar />
         <main id="main-content">{children}</main>
       </body>
     </html>

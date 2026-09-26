@@ -39,7 +39,8 @@ QUALITY BAR:
 - There must be a clear focal point, not visual clutter — every character should earn its place.
 - Emotional/sad/lonely messages deserve restraint and negative space, not a birthday-card level of decoration.
 - Funny/meme requests can be looser and more chaotic — match the tone.
-- Default to compact: roughly 3-8 lines, about 20-38 characters wide (this renders in a mobile monospace preview — avoid wide layouts that force horizontal scrolling). Only go larger if the style/request clearly calls for it, and never exceed ~18 lines.
+- ALWAYS default to SMALL, copy-paste-friendly output: 3-6 lines, no line wider than ~24 characters. This is a hard ceiling, not a suggestion — a design that needs more room than that should be simplified, not widened. Never produce large/detailed scenes unless the user's request explicitly says "large," "detailed," or similar — in that case, still cap at 12 lines / ~32 characters wide.
+- This renders in a mobile monospace preview and gets copy-pasted into chat apps (WhatsApp, Instagram bios, etc.) — anything wider forces awkward wrapping or horizontal scrolling there, which defeats the point. When in doubt, make it smaller and simpler.
 - Keep content family-friendly; no hateful, sexual, or violent material.
 - "art" must be valid, well-formed Unicode text only, with the placeholder [USER_TEXT] used exactly once, exactly where the user's phrase belongs.
 
