@@ -12,6 +12,8 @@ export interface GenerateResult {
   output: AiArtOutput;
   latencyMs: number;
   model: string;
+  /** Prompt revision that produced this output; "n/a" for MockProvider. */
+  promptVersion: string;
 }
 
 /**
@@ -22,6 +24,11 @@ export interface GenerateResult {
 export interface AIProvider {
   generateEmojiArt(input: GenerateInput): Promise<GenerateResult>;
 }
+
+// Bump this whenever SYSTEM_PROMPT's creative rules materially change, so
+// records in the cache can be traced back to which prompt produced them
+// (spec: "prompt versioning" — never overwrite the string, add a new one).
+export const PROMPT_VERSION = "art_director_v2";
 
 const SYSTEM_PROMPT = `You are the AI Art Director for EmojiForge AI — not a text decorator. Your job: read the user's message like a human artist would, understand what it actually means emotionally and relationally, then design a small ORIGINAL visual scene (ASCII + Unicode + emoji + kaomoji + typography) that captures it. The result should feel like "this was made for THIS message," never like generic emoji sprinkled around text.
 
@@ -119,7 +126,7 @@ export class GroqProvider implements AIProvider {
       throw new AppError(ErrorCode.AI_PROVIDER_ERROR, "AI output failed validation", { retryable: true });
     }
 
-    return { output: output.data, latencyMs: Date.now() - started, model };
+    return { output: output.data, latencyMs: Date.now() - started, model, promptVersion: PROMPT_VERSION };
   }
 }
 
@@ -145,6 +152,7 @@ export class MockProvider implements AIProvider {
       },
       latencyMs: Date.now() - started,
       model: "mock-local-v1",
+      promptVersion: "n/a",
     };
   }
 }

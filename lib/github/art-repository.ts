@@ -60,6 +60,11 @@ export class GitHubArtRepository implements ArtRepository {
     return best?.record ?? null;
   }
 
+  async findByContentHash(hash: string): Promise<EmojiArtRecord | null> {
+    const db = await loadDb();
+    return db.emoji_arts.find((a) => a.content_hash === hash && a.status === "active") ?? null;
+  }
+
   async create(record: EmojiArtRecord): Promise<EmojiArtRecord> {
     enqueueMutation((db) => ({ ...db, emoji_arts: [...db.emoji_arts, record] }));
     invalidateReadCache();

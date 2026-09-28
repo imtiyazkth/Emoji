@@ -12,21 +12,30 @@ calls.
 - ✅ Sticker Studio (512×512 canvas editor, PNG export)
 - ✅ Copy / Download / WhatsApp & Telegram share links
 - ✅ GitHub-JSON data store with single-writer batched write queue
-- ✅ Cache Agent: exact → fuzzy → AI → graceful fallback
+- ✅ Cache Agent: AI-first, with cache → featured → deterministic template as fallback if Groq is unavailable
 - ✅ Admin CMS (login, analytics dashboard, pattern moderation)
 - ✅ Responsive, accessible, PWA-ready UI
 - ✅ Security basics (CSP headers, rate limiting, signed admin sessions, input validation)
 - ✅ Unit + integration tests
+- ✅ My Memory — local-first (IndexedDB) creation library; reuse saved creations instantly with zero AI calls (currently wired into Text → Emoji Art only — see `docs/memory.md`)
+- ✅ Projects portfolio (`/projects`, owner-editable from `/admin/projects` — no redeploy needed)
+- ✅ AdSense-ready `AdSlot` architecture (inert by default until a real publisher ID + ad network script is added — see `components/ads/AdSlot.tsx`)
+- ✅ Cookie/consent banner — gates analytics tracking behind explicit opt-in (`lib/consent/`)
+- ✅ Analytics event abstraction (`lib/analytics/provider.ts`) — consent-gated, no-op by default (no third-party service wired up; swap in a real provider when one is configured)
+- ✅ Duplicate-prevention content hashing + prompt versioning for the AI cache (see `docs/cache-agent.md`)
+- ✅ Contact page (`/contact`)
+- ✅ PWA offline shell (service worker + offline banner — see `docs/pwa.md` for untested caveats)
 
-See `docs/` for architecture, database, security, API, deployment, and
-admin details.
+See `docs/` for architecture, database, security, API, deployment,
+admin, and memory-system details.
 
 ## Architecture
 
 Single Next.js 14 App Router application (frontend + API routes) — see
 `docs/architecture.md` for the full rationale and request-flow diagram.
-Core principle: **never call the AI API when a cached pattern can
-satisfy the request** — see `docs/cache-agent.md`.
+Core principle: **every request calls the AI provider first for a
+fresh, original composition; the cache is a resilience fallback for
+when Groq is unavailable** — see `docs/cache-agent.md`.
 
 ## Getting started
 
@@ -126,6 +135,38 @@ audit logging).
 - `tests/api/` and `tests/e2e/` directories are scaffolded but empty;
   the existing unit/integration suite covers the logic that doesn't
   require a running server or browser.
+- **My Memory** (`lib/memory/`, `/memory`) has never run in a real
+  browser (no browser in the authoring sandbox) — verify it end-to-end
+  before relying on it; see `docs/memory.md`'s limitations section for
+  the exact checks and for what's not yet built (regenerate action,
+  export/import UI, auto-save from the other three tools).
+
+## Still deferred from the full product spec
+
+Most of the larger product spec is now built (see the feature list
+above). These pieces are intentionally still NOT done, to avoid shipping
+half-working versions of complex systems:
+
+- **Apple-style motion/interaction doctrine** — spring physics,
+  gesture-driven sheets, interruptible animations, and a materials/glass
+  hierarchy. The current UI is a plain, functional Tailwind
+  implementation with simple press feedback only.
+- **Admin CMS beyond Projects and pattern moderation** — categories,
+  feature flags, site metadata, ad frequency config and About-page
+  content are still edited by hand in the relevant `data/*.json` file
+  followed by a redeploy.
+- **Real analytics provider and real ad network** — the consent banner,
+  `trackEvent()` abstraction and `AdSlot` are all in place, but
+  `trackEvent()` is a no-op and `AdSlot` renders nothing until a real
+  provider / publisher ID is added.
+- **Not browser-tested**: My Memory (IndexedDB), the service worker /
+  offline banner, and the cookie banner have never run in a real
+  browser (none was available while authoring). Follow the
+  verification steps in `docs/memory.md` and `docs/pwa.md` after
+  deploying.
+- **Memory auto-save for Kaomoji / Mosaic / Sticker tools** — only
+  Text → Emoji Art saves to My Memory today.
+- **Real PWA icons** — `public/icons/` only contains a placeholder note.
 
 ## Migration strategy
 

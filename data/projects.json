@@ -1,0 +1,20 @@
+{
+  "database_version": "1.0.0",
+  "projects": [
+    {
+      "id": "project-001",
+      "name": "EmojiForge AI",
+      "shortDescription": "AI-powered emoji art, kaomoji, photo mosaic and sticker studio.",
+      "fullDescription": "This platform — the one you're using right now. Turns any message into an original visual composition using Groq AI, with a local-first Memory library and a GitHub-JSON-backed curated pattern store.",
+      "category": "AI",
+      "status": "Live",
+      "website": "https://emojiart-tau.vercel.app",
+      "github": "https://github.com/imtiyazkth/Emoji",
+      "demo": "",
+      "docs": "",
+      "image": "",
+      "tags": ["AI", "Web", "Next.js"],
+      "featured": true
+    }
+  ]
+}

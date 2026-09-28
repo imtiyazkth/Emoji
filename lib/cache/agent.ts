@@ -3,9 +3,10 @@ import { GitHubArtRepository } from "../github/art-repository";
 import { getAiProvider } from "../ai/provider";
 import { buildIntentKey } from "./cache-key";
 import { renderPlaceholders } from "../unicode";
+import { contentHashFor } from "../utils/content-hash";
 import type { EmojiArtRecord } from "../utils/schemas";
 import { assertSafeInput } from "../moderation/check";
-import { AppError, ErrorCode } from "../utils/errors";
+import { AppError } from "../utils/errors";
 
 export interface CacheAgentInput {
   text: string;
@@ -26,12 +27,23 @@ export interface CacheAgentResult {
 const FALLBACK_TEMPLATE = "✨ [USER_TEXT] ✨";
 
 /**
- * Implements the request flow from the spec:
- *   normalize -> exact match -> fuzzy match -> (semantic, if enabled) ->
- *   cache hit? return : call AI -> validate -> moderate -> cache -> return
+ * Request flow (AI-first — this intentionally reverses the original
+ * "never call AI if cache can satisfy" cost-saving default):
  *
- * The guiding rule: never call the AI API when a trusted cached pattern
- * can satisfy the request. AI is the last resort, not the default path.
+ *   normalize -> call Groq -> validate output -> moderate -> cache
+ *   (queued write) -> return
+ *
+ *   Groq unavailable/rate-limited/timed out?
+ *     -> exact intent-key match in the cached DB
+ *     -> fuzzy/token-overlap match in the cached DB
+ *     -> a featured cached template for the requested style
+ *     -> deterministic local template (always succeeds)
+ *
+ * Every successful AI generation is still queued into the GitHub-backed
+ * store (lib/github/write-queue.ts) so it becomes part of the fallback
+ * pool for future requests when Groq is down. A non-retryable failure
+ * (e.g. the AI's own output tripping moderation) is surfaced directly
+ * rather than silently masked by a cache fallback.
  */
 export class CacheAgent {
   constructor(private repo: ArtRepository = new GitHubArtRepository()) {}
@@ -41,29 +53,21 @@ export class CacheAgent {
 
     const intentKey = buildIntentKey(input.category ?? input.style, input.text);
 
-    // 1) Exact intent-key match
-    const exact = await this.repo.findByIntentKey(intentKey);
-    if (exact) {
-      await this.repo.incrementHit(exact.id);
-      return this.toResult(exact, "cache", "exact", input.text);
-    }
-
-    // 2) Fuzzy / token-overlap match against keyword sets for this style
-    const threshold = Number(process.env.FUZZY_MATCH_THRESHOLD || 0.8);
-    const fuzzy = await this.repo.findSimilar(input.text, input.style, threshold);
-    if (fuzzy) {
-      await this.repo.incrementHit(fuzzy.id);
-      return this.toResult(fuzzy, "cache", "fuzzy", input.text);
-    }
-
-    // 3) (Semantic matching layer would run here if SEMANTIC_CACHE_ENABLED —
-    //    see docs/cache-agent.md for the local-embedding-index design.)
-
-    // 4) AI generation, with graceful fallback if the provider fails/quota exceeded.
     try {
       const provider = getAiProvider();
-      const { output } = await provider.generateEmojiArt(input);
+      const { output, promptVersion } = await provider.generateEmojiArt(input);
       assertSafeInput(output.art);
+
+      const contentHash = contentHashFor(output.art, output.style);
+      const duplicate = await this.repo.findByContentHash(contentHash);
+      if (duplicate) {
+        // Groq generated something we already have byte-for-byte (for this
+        // style) — reuse the existing record instead of writing a new one,
+        // per the spec's duplicate-prevention rule. The user still gets a
+        // freshly-generated answer; we just don't bloat the cache with it.
+        await this.repo.incrementHit(duplicate.id);
+        return this.toResult(duplicate, "ai", "ai_generated", input.text);
+      }
 
       const now = new Date().toISOString();
       const record: EmojiArtRecord = {
@@ -75,6 +79,8 @@ export class CacheAgent {
         language: input.language,
         hit_count: 0,
         quality_score: 0.5,
+        prompt_version: promptVersion,
+        content_hash: contentHash,
         source: "groq_ai_generated",
         status: "active",
         featured: false,
@@ -85,15 +91,33 @@ export class CacheAgent {
       await this.repo.create(record); // queued write, not a direct commit
       return this.toResult(record, "ai", "ai_generated", input.text);
     } catch (err) {
-      // Graceful fallback chain: approved cache (featured) -> deterministic template.
+      if (err instanceof AppError && !err.retryable) {
+        // e.g. the AI's own output tripped moderation — surface it, don't
+        // paper over it with a cached result.
+        throw err;
+      }
+
+      // Groq is down/rate-limited/timed out — fall back to the existing
+      // cached database, in the same priority order the original
+      // cache-first design used: exact -> fuzzy -> featured -> deterministic.
+      const exact = await this.repo.findByIntentKey(intentKey);
+      if (exact) {
+        await this.repo.incrementHit(exact.id);
+        return this.toResult(exact, "cache", "exact", input.text);
+      }
+
+      const threshold = Number(process.env.FUZZY_MATCH_THRESHOLD || 0.8);
+      const fuzzy = await this.repo.findSimilar(input.text, input.style, threshold);
+      if (fuzzy) {
+        await this.repo.incrementHit(fuzzy.id);
+        return this.toResult(fuzzy, "cache", "fuzzy", input.text);
+      }
+
       const featured = await this.repo.listFeatured(1);
       if (featured[0]) {
         return this.toResult(featured[0], "fallback", "fallback_template", input.text);
       }
-      if (err instanceof AppError && !err.retryable) {
-        // Non-retryable AI errors (e.g. moderation) should surface, not be masked.
-        throw err;
-      }
+
       return {
         art: renderPlaceholders(FALLBACK_TEMPLATE, { USER_TEXT: input.text }),
         source: "fallback",

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AdminNav } from "@/components/admin/AdminNav";
 
 interface Pattern {
   id: string;
@@ -47,6 +48,7 @@ export default function AdminPatternsPage() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
       <h1 className="text-xl font-bold">Pattern Moderation</h1>
+      <AdminNav active="/admin/patterns" />
       {error && <p className="text-sm text-danger">{error}</p>}
       <ul className="flex flex-col gap-3">
         {patterns.map((p) => (

@@ -14,12 +14,13 @@ async function main() {
     return;
   }
 
-  console.log("Reading data/emoji_art_db.json from GitHub…");
-  const { data, sha } = await readJsonFile<Record<string, unknown>>(githubPath("emoji_art_db.json"));
+  const path = githubPath("emoji_art_db.json");
+  console.log(`Reading ${path} from GitHub…`);
+  const { data, sha } = await readJsonFile<Record<string, unknown>>(path);
   console.log(`✅ Read succeeded. total_records=${(data as any).total_records}, sha=${sha.slice(0, 8)}…`);
 
   console.log("Performing a no-op write (same content) to verify write permissions…");
-  const result = await writeJsonFile(githubPath("emoji_art_db.json"), data, sha, "chore: verify GitHub write access (no-op)");
+  const result = await writeJsonFile(path, data, sha, "chore: verify GitHub write access (no-op)");
   console.log(`✅ Write succeeded. new sha=${result.sha.slice(0, 8)}…`);
 }
 

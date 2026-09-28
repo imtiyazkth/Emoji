@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AdminNav } from "@/components/admin/AdminNav";
 
 interface Analytics {
   totals: { records: number; cacheHits: number; bySource: Record<string, number> };
@@ -36,6 +37,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
       <h1 className="text-xl font-bold">Admin Dashboard</h1>
+      <AdminNav active="/admin/dashboard" />
       {error && <p className="text-sm text-danger">{error}</p>}
 
       {data && (

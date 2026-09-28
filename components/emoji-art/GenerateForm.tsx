@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { StickyActionBar } from "@/components/shared/StickyActionBar";
+import { saveCreation } from "@/lib/memory/creations";
+import { trackEvent } from "@/lib/analytics/provider";
 
 const STYLES = [
   { id: "bunny", label: "❤️ Love" },
@@ -18,6 +20,7 @@ interface GenerateResponse {
   success: boolean;
   art?: string;
   source?: string;
+  category?: string;
   error?: { message: string };
 }
 
@@ -28,12 +31,15 @@ export function GenerateForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loadingLabel, setLoadingLabel] = useState("Understanding your text…");
+  const [savedNotice, setSavedNotice] = useState(false);
 
   async function handleGenerate() {
     if (!text.trim()) return;
     setStatus("loading");
     setErrorMsg(null);
+    setSavedNotice(false);
     setLoadingLabel("Understanding your text…");
+    trackEvent("generation_started", { style });
     const t1 = setTimeout(() => setLoadingLabel("Creating layout…"), 500);
     const t2 = setTimeout(() => setLoadingLabel("Polishing emoji spacing…"), 1100);
 
@@ -49,9 +55,37 @@ export function GenerateForm() {
       }
       setArt(data.art ?? null);
       setStatus("idle");
+      trackEvent("generation_success", { style, source: data.source ?? "unknown" });
+      if (data.source === "cache" || data.source === "fallback") {
+        trackEvent("cache_hit", { style });
+      } else {
+        trackEvent("cache_miss", { style });
+      }
+
+      // Every creation is saved to the user's local Memory automatically
+      // (spec: "the user should not have to regenerate the same thing
+      // again") — this never calls any network API, purely on-device.
+      if (data.art) {
+        try {
+          await saveCreation({
+            title: text.trim().slice(0, 60),
+            originalInput: text.trim(),
+            generatedOutput: data.art,
+            mode: "text-to-art",
+            style,
+            category: data.category,
+          });
+          setSavedNotice(true);
+          trackEvent("art_saved", { mode: "text-to-art" });
+        } catch {
+          // IndexedDB unavailable (private browsing, old browser, etc.) —
+          // saving is a nice-to-have, never block the generation result.
+        }
+      }
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong");
       setStatus("error");
+      trackEvent("generation_failed", { style });
     } finally {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -64,6 +98,7 @@ export function GenerateForm() {
 
   function handleShare() {
     if (!art) return;
+    trackEvent("art_shared", { channel: "whatsapp" });
     const url = `https://wa.me/?text=${encodeURIComponent(art)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }
@@ -125,9 +160,11 @@ export function GenerateForm() {
           <div className="glass-card art-preview-container rounded-card p-4">
             <pre className="art-preview text-lg">{art}</pre>
           </div>
+          {savedNotice && <p className="text-xs text-text-secondary">Saved to My Memory</p>}
           <StickyActionBar onCopy={handleCopy} onShare={handleShare} />
         </div>
       )}
     </div>
   );
 }
+

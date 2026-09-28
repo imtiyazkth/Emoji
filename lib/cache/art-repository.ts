@@ -10,6 +10,8 @@ import type { EmojiArtRecord } from "../utils/schemas";
 export interface ArtRepository {
   findByIntentKey(intentKey: string): Promise<EmojiArtRecord | null>;
   findSimilar(query: string, style: string, threshold?: number): Promise<EmojiArtRecord | null>;
+  /** Duplicate-prevention lookup (spec: never store the same generated art twice). */
+  findByContentHash(hash: string): Promise<EmojiArtRecord | null>;
   create(record: EmojiArtRecord): Promise<EmojiArtRecord>;
   update(id: string, patch: Partial<EmojiArtRecord>): Promise<EmojiArtRecord | null>;
   incrementHit(id: string): Promise<void>;

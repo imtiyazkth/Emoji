@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics/provider";
 import {
   type Creation,
   listCreations,
@@ -43,6 +44,7 @@ export function MemoryLibrary() {
 
   function copy(text: string) {
     void navigator.clipboard.writeText(text);
+    trackEvent("art_reused");
   }
 
   async function handleFavorite(id: string) {

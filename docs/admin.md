@@ -14,6 +14,10 @@
 - `/admin/login` — sign-in form, posts to `/api/admin/login`.
 - `/admin/dashboard` — cache hit rate, AI calls saved, records by
   source, top patterns by hit count (pulled from `/api/admin/analytics`).
+- `/admin/projects` — feature/hide/publish portfolio projects. Writes go
+  through `lib/github/config-store.ts` (GitHub when configured, local file
+  in dev), so `/projects` updates within ~1 minute with no redeploy.
+  Also supports `POST /api/admin/projects` to add a new project.
 - `/admin/patterns` — moderation queue: approve/hide/feature any cached
   art record (pulled from and patched via `/api/admin/patterns`).
 

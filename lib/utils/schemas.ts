@@ -17,6 +17,10 @@ export const EmojiArtRecordSchema = z.object({
   language: z.string().default("en"),
   hit_count: z.number().int().nonnegative().default(0),
   quality_score: z.number().min(0).max(1).default(0),
+  /** Which system-prompt revision produced this (lib/ai/provider.ts PROMPT_VERSION). Absent for seed/manual records. */
+  prompt_version: z.string().optional(),
+  /** SHA-256 of the normalized art text — used to skip caching near-duplicate AI outputs. */
+  content_hash: z.string().optional(),
   source: z.enum(["seed", "groq_ai_generated", "user_contributed", "admin_authored"]),
   status: z.enum(["active", "pending", "hidden", "rejected"]).default("active"),
   featured: z.boolean().default(false),
@@ -61,7 +65,7 @@ export const AiArtOutputSchema = z.object({
   title: z.string().min(1).max(80),
   category: z.string().min(1).max(40),
   style: z.string().min(1).max(40),
-  art: z.string().min(1).max(2000),
+  art: z.string().min(1).max(2500),
   keywords: z.array(z.string()).max(15),
 });
 export type AiArtOutput = z.infer<typeof AiArtOutputSchema>;

@@ -2,7 +2,18 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://emojiforge.ai";
-  const routes = ["", "/workspace/text-art", "/workspace/kaomoji", "/workspace/mosaic", "/workspace/stickers"];
+  const routes = [
+    "",
+    "/workspace/text-art",
+    "/workspace/kaomoji",
+    "/workspace/mosaic",
+    "/workspace/stickers",
+    "/projects",
+    "/about",
+    "/privacy",
+    "/terms",
+    "/contact",
+  ];
   return routes.map((route) => ({
     url: `${base}${route}`,
     lastModified: new Date(),

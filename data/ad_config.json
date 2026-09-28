@@ -1,0 +1,16 @@
+{
+  "adsEnabled": false,
+  "publisherId": "",
+  "placements": {
+    "top": false,
+    "sidebar": false,
+    "betweenContent": false,
+    "footer": false
+  },
+  "frequency": {
+    "initialAdFreeCreations": 3,
+    "creationsBeforeNextAd": 5,
+    "minimumSecondsBetweenAds": 90,
+    "maximumAdsPerSession": 3
+  }
+}

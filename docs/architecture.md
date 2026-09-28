@@ -24,14 +24,16 @@ Browser
   -> POST /api/generate (GenerateRequestSchema validated)
   -> CacheAgent.resolve()
        -> normalize input (lib/unicode)
-       -> exact intent-key match (ArtRepository.findByIntentKey)
-       -> fuzzy/token-overlap match (ArtRepository.findSimilar)
-       -> [semantic match layer — see docs/cache-agent.md, disabled by default]
-       -> AI generation (lib/ai/provider.ts, Groq or Mock)
+       -> AI generation, tried FIRST (lib/ai/provider.ts, Groq or Mock)
             -> validate AI JSON output (Zod)
             -> moderation check
             -> ArtRepository.create() -> enqueued, NOT written directly
-       -> fallback chain: cache -> featured template -> deterministic template
+            -> success: return { source: "ai" }
+       -> AI failed/unavailable/rate-limited: fallback chain
+            -> exact intent-key match (ArtRepository.findByIntentKey)
+            -> fuzzy/token-overlap match (ArtRepository.findSimilar)
+            -> featured cached template for the requested style
+            -> deterministic local template (always succeeds)
   -> standardized JSON response ({ success, art, source, requestId })
 ```
 

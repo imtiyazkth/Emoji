@@ -5,6 +5,9 @@ import { errorResponseBody, statusFor, newRequestId, AppError, ErrorCode } from 
 import { checkRateLimit, clientIdFromRequest } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
+// Groq's reasoning models can take longer than Vercel's serverless default
+// (10s on some plans); this raises the function's own ceiling so it isn't
+// killed before our 20s fetch-level AbortController gets a chance to fire.
 export const maxDuration = 30;
 
 const agent = new CacheAgent();

@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/shared/NavBar";
+import { CookieConsentBanner } from "@/components/shared/CookieConsentBanner";
+import { ServiceWorkerRegister } from "@/components/shared/ServiceWorkerRegister";
+import { OfflineBanner } from "@/components/shared/OfflineBanner";
 
 export const metadata: Metadata = {
   title: "EmojiForge AI — Turn anything into emoji art",
@@ -33,7 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <NavBar />
+        <OfflineBanner />
         <main id="main-content">{children}</main>
+        <CookieConsentBanner />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );

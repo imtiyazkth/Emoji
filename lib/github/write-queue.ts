@@ -2,7 +2,7 @@ import { isGithubConfigured, readJsonFile, writeJsonFile } from "./client";
 import { localReadJson, localWriteJson } from "./local-store";
 import { githubPath, localFileName } from "./paths";
 import { assertValidEmojiArtDb, type EmojiArtDb } from "../utils/schemas";
-import { AppError, ErrorCode } from "../utils/errors";
+import { AppError } from "../utils/errors";
 
 /**
  * Single-writer, batched mutation queue for the GitHub JSON store.
