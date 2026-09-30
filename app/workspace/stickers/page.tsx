@@ -4,7 +4,7 @@ import { StickerStudio } from "@/components/sticker/StickerStudio";
 
 export const metadata: Metadata = {
   title: "Sticker Studio | EmojiForge AI",
-  description: "Design a 512×512 sticker with text and emoji layers, then export as PNG.",
+  description: "Design a sticker with styled text, colors, emoji, and AI emoji art — drag, resize, rotate, then export as PNG.",
 };
 
 export default function StickersPage() {

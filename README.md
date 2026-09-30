@@ -9,7 +9,7 @@ calls.
 - ✅ Text → AI Emoji Art (Groq, with automatic offline `MockProvider` fallback)
 - ✅ Emoji → Kaomoji (pure local dictionary lookup, no AI call)
 - ✅ Photo → Emoji Mosaic (entirely client-side canvas processing)
-- ✅ Sticker Studio (512×512 canvas editor, PNG export)
+- ✅ Sticker Studio — styled text (fonts/colors/outline/shadow/background), emoji, and AI/Memory emoji-art layers, with drag-to-move + on-canvas resize/rotate handles; saves to My Memory and exports PNG
 - ✅ Copy / Download / WhatsApp & Telegram share links
 - ✅ GitHub-JSON data store with single-writer batched write queue
 - ✅ Cache Agent: AI-first, with cache → featured → deterministic template as fallback if Groq is unavailable
@@ -121,9 +121,12 @@ audit logging).
   `npm install && npm run lint && npm run typecheck && npm test && npm run build`.
 - **Semantic matching** is designed (`docs/cache-agent.md`) but not
   implemented — `SEMANTIC_CACHE_ENABLED` is a no-op today.
-- **Sticker Studio** supports text/emoji layers and PNG export; image
-  upload as a layer, shape/border/shadow tools, and multi-sticker pack
-  export are not yet built.
+- **Sticker Studio** supports styled text (fonts, colors, outline,
+  shadow, background pill, alignment), emoji, and emoji art layers —
+  drag to move, and the two on-canvas handles resize/rotate the
+  selected layer. Saves to My Memory and exports PNG. Not yet built:
+  uploading your own image as a layer, and multi-sticker pack export
+  (bundling several stickers together).
 - **Audit logging** for admin actions is not yet wired up (see
   `docs/security.md`).
 - **i18n** architecture is prepared (`language` flows through the
@@ -164,8 +167,9 @@ half-working versions of complex systems:
   browser (none was available while authoring). Follow the
   verification steps in `docs/memory.md` and `docs/pwa.md` after
   deploying.
-- **Memory auto-save for Kaomoji / Mosaic / Sticker tools** — only
-  Text → Emoji Art saves to My Memory today.
+- **Memory auto-save for Kaomoji / Mosaic tools** — Text → Emoji Art
+  and Sticker Studio both save to My Memory now; Kaomoji and Mosaic
+  still don't.
 - **Real PWA icons** — `public/icons/` only contains a placeholder note.
 
 ## Migration strategy

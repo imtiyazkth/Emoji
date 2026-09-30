@@ -47,6 +47,14 @@ export function MemoryLibrary() {
     trackEvent("art_reused");
   }
 
+  function downloadSticker(dataUrl: string, title: string) {
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = `${(title || "sticker").replace(/[^\w-]+/g, "_")}.png`;
+    a.click();
+    trackEvent("art_reused");
+  }
+
   async function handleFavorite(id: string) {
     await toggleFavorite(id);
     await load();
@@ -134,11 +142,29 @@ export function MemoryLibrary() {
                 {c.favorite ? "★" : "☆"}
               </button>
             </div>
-            <pre className="art-preview rounded-xl bg-surface p-3 text-sm">{c.generatedOutput}</pre>
+            {c.mode === "sticker" ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={c.generatedOutput}
+                alt={c.title || "Saved sticker"}
+                className="mx-auto h-32 w-32 rounded-xl border border-border object-contain"
+              />
+            ) : (
+              <pre className="art-preview rounded-xl bg-surface p-3 text-sm">{c.generatedOutput}</pre>
+            )}
             <div className="flex flex-wrap gap-2">
-              <button onClick={() => copy(c.generatedOutput)} className="rounded-full border border-border px-3 py-1 text-xs">
-                Copy
-              </button>
+              {c.mode === "sticker" ? (
+                <button
+                  onClick={() => downloadSticker(c.generatedOutput, c.title)}
+                  className="rounded-full border border-border px-3 py-1 text-xs"
+                >
+                  Download PNG
+                </button>
+              ) : (
+                <button onClick={() => copy(c.generatedOutput)} className="rounded-full border border-border px-3 py-1 text-xs">
+                  Copy
+                </button>
+              )}
               <button onClick={() => handleDuplicate(c.id)} className="rounded-full border border-border px-3 py-1 text-xs">
                 Duplicate
               </button>
