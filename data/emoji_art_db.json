@@ -1,7 +1,7 @@
 {
   "database_version": "1.0.0",
-  "last_updated": "2026-09-23T15:08:38.980Z",
-  "total_records": 19,
+  "last_updated": "2026-09-30T07:03:59.618Z",
+  "total_records": 20,
   "emoji_arts": [
     {
       "id": "art_001",
@@ -412,6 +412,29 @@
       "created_at": "2026-09-23T15:04:41.887Z",
       "updated_at": "2026-09-23T15:04:41.887Z",
       "raw_text_art": "🎂  ✨  ✨  🎉\n\n      (•‿•)\n      /|\\\n       |\n     Imtiyaz Surjapuri\n   🎈  🎈  🎈\n\n"
+    },
+    {
+      "id": "art_munr83yp",
+      "intent_key": "cute:new",
+      "user_intent_keywords": [
+        "new",
+        "car",
+        "cute",
+        "heart"
+      ],
+      "category": "auto",
+      "style": "cute",
+      "language": "en",
+      "hit_count": 0,
+      "quality_score": 0.5,
+      "prompt_version": "art_director_v2",
+      "content_hash": "36df09d7d54217fc4320510ce4ba6d4acee4396b037873a238a0e7b1d383af96",
+      "source": "groq_ai_generated",
+      "status": "active",
+      "featured": false,
+      "created_at": "2026-09-30T06:58:50.257Z",
+      "updated_at": "2026-09-30T06:58:50.257Z",
+      "raw_text_art": "  (◕‿◕)  \n  ──[USER_TEXT]──\n (   🚗   )\n   \\_____/"
     }
   ]
 }
